@@ -1,9 +1,13 @@
 package endtoendtest;
 
+import auctionsniper.Main;
+import static endtoendtest.FakeAuctionServer.XMPP_HOSTNAME;
 
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";
+	public static final String STATUS_JOINING = "Joining";
+	public static final String STATUS_LOST = "Lost";
 	private AuctionSniperDriver driver;
 
 	public void startBiddingIn(final FakeAuctionServer auction) {
