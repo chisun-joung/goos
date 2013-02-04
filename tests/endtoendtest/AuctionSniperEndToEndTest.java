@@ -3,9 +3,7 @@ package endtoendtest;
 import org.junit.After;
 import org.junit.Test;
 
-import application.ApplicationRunner;
 
-import fake.FakeAuctionServer;
 
 public class AuctionSniperEndToEndTest {
 	private final FakeAuctionServer auction = new FakeAuctionServer(
