@@ -48,7 +48,7 @@ public class FakeAuctionServer {
 	}
 
 	public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-		messageListener.receivesAMessage();
+		messageListener.receivesAMessage(is(anything()));
 	}
 
 	public void announceClosed() throws XMPPException {
@@ -60,8 +60,7 @@ public class FakeAuctionServer {
 	}
 
 	public class SingleMessageListener implements MessageListener {
-		private final ArrayBlockingQueue<Message> messages = new ArrayBlockingQueue<Message>(
-				1);
+		private final ArrayBlockingQueue<Message> messages = new ArrayBlockingQueue<Message>(1);
 
 		public void processMessage(Chat chat, Message message) {
 			messages.add(message);
@@ -71,5 +70,16 @@ public class FakeAuctionServer {
 			assertThat("Message", messages.poll(5, TimeUnit.SECONDS),
 					is(notNullValue()));
 		}
+	}
+
+	public void reportPrice(int price, int increment, String bidder) throws XMPPException {
+		currentChat.sendMessage(String.format("SOLVersion: 1.1; Event: PRICE; "	+ "CurrentPrice: %d; Increment: %d; Bidder: %s;",
+				price, increment, bidder));
+		
+	}
+
+	public void hasReceivedBid(int i, String sniperXmppId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

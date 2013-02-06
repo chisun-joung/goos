@@ -8,17 +8,15 @@ public class ApplicationRunner {
 	public static final String SNIPER_PASSWORD = "sniper";
 	public static final String STATUS_JOINING = "Joining";
 	public static final String STATUS_LOST = "Lost";
+	public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
 	private AuctionSniperDriver driver;
 
 	public void startBiddingIn(final FakeAuctionServer auction) {
 		Thread thread = new Thread("Test Application") {
-
 			@Override
 			public void run() {
 				try {
-
-					Main.main(XMPP_HOSTNAME, SNIPER_ID, SNIPER_PASSWORD,
-							auction.getItemId());
+					Main.main(XMPP_HOSTNAME, SNIPER_ID, SNIPER_PASSWORD,auction.getItemId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,5 +37,10 @@ public class ApplicationRunner {
 		if (driver != null) {
 			driver.dispose();
 		}
+	}
+
+	public void hasShownSniperIsBidding() {
+		// TODO Auto-generated method stub
+		
 	}
 }
