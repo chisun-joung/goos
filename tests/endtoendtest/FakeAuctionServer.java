@@ -1,5 +1,6 @@
 package endtoendtest;
 
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -66,9 +67,10 @@ public class FakeAuctionServer {
 			messages.add(message);
 		}
 
-		public void receivesAMessage() throws InterruptedException {
-			assertThat("Message", messages.poll(5, TimeUnit.SECONDS),
-					is(notNullValue()));
+		public void receivesAMessage(Matcher<? super String> messageMatcher) throws InterruptedException {
+			final Message message = messages.poll(5,TimeUnit.SECONDS);
+			assertThat("Message", messages.poll(5, TimeUnit.SECONDS),is(notNullValue()));
+			assertThat(message.getBody(), messageMatcher);
 		}
 	}
 
