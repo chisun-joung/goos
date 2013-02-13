@@ -22,6 +22,8 @@ public class Main {
 
 	public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
 	public static final String SNIPER_STATUS_NAME = "Status";
+	public static final String JOIN_COMMAND_FORMAT = "Join";
+	public static final String BID_COMMAND_FORMAT = "Bid";
 	private MainWindow ui;
 	@SuppressWarnings("unused") private Chat notToBeGCd;
 	
