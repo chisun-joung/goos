@@ -1,6 +1,7 @@
 package endtoendtest;
 
 import auctionsniper.Main;
+import auctionsniper.ui.MainWindow;
 import static endtoendtest.FakeAuctionServer.XMPP_HOSTNAME;
 
 public class ApplicationRunner {
@@ -40,7 +41,7 @@ public class ApplicationRunner {
 	}
 
 	public void hasShownSniperIsBidding() {
-		// TODO Auto-generated method stub
+		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
 		
 	}
 }

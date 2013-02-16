@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 public class MainWindow extends JFrame {
 	public static final String STATUS_LOST = "Lost";
 	private static final String STATUS_JOINING = "Joining";
+	public static final String STATUS_BIDDING = "Bidding";
 	private final JLabel sniperStatus = createLabel(STATUS_JOINING);
 
 	public MainWindow() {
