@@ -53,7 +53,7 @@ public class FakeAuctionServer {
 	}
 
 	public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-		messageListener.receivesAMessage(is(anything()));
+		messageListener.receivesAMessage();
 	}
 
 	public void hasReceivedJoinRequestFrom(String sniperID)
@@ -90,19 +90,17 @@ public class FakeAuctionServer {
 	}
 
 	public class SingleMessageListener implements MessageListener {
-		private final ArrayBlockingQueue<Message> messages = new ArrayBlockingQueue<Message>(
-				1);
+		private final ArrayBlockingQueue<Message> messages = 
+														new ArrayBlockingQueue<Message>(1);
 
 		public void processMessage(Chat chat, Message message) {
 			messages.add(message);
 		}
 
-		public void receivesAMessage(Matcher<? super String> messageMatcher)
-				throws InterruptedException {
-			final Message message = messages.poll(5, TimeUnit.SECONDS);
+		public void receivesAMessage() throws InterruptedException {
 			assertThat("Message", messages.poll(5, TimeUnit.SECONDS),
 					is(notNullValue()));
-			assertThat(message.getBody(), messageMatcher);
+
 		}
 	}
 }
