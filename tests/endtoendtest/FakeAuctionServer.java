@@ -97,6 +97,11 @@ public class FakeAuctionServer {
 			messages.add(message);
 		}
 
+		public void receivesAMessage(Matcher<? super String> messageMatcher) {
+			// TODO Auto-generated method stub
+			
+		}
+
 		public void receivesAMessage() throws InterruptedException {
 			assertThat("Message", messages.poll(5, TimeUnit.SECONDS),
 					is(notNullValue()));

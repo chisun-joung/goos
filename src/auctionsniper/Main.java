@@ -31,15 +31,15 @@ public class Main {
 	@SuppressWarnings("unused") private Chat notToBeGCd;
 	
 	public Main() throws Exception {
-		startUserInterface();
+		//startUserInterface();
 	}
 
 	public static void main(String... args) throws Exception {
 
 		Main main = new Main();
-		main.joinAuction(
-				connection(args[ARG_HOSTNAME], args[ARG_USERNAME],
-						args[ARG_PASSWORD]), args[ARG_ITEM_ID]);
+//		main.joinAuction(
+//				connection(args[ARG_HOSTNAME], args[ARG_USERNAME],
+//						args[ARG_PASSWORD]), args[ARG_ITEM_ID]);
 	}
 
 	private void joinAuction(XMPPConnection connection, String itemId)
