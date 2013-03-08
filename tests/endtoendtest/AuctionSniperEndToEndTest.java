@@ -18,16 +18,16 @@ public class AuctionSniperEndToEndTest {
 	}
 
 	@Ignore
-	public void sniperMakesAHigherBidButLoses() throws Exception {
-		auction.startSellingItem();
-		application.startBiddingIn(auction);
-		auction.hasReceivedJoinRequestFrom(ApplicationRunner.SNIPER_XMPP_ID);
-		auction.reportPrice(1000, 98, "other bidder");
-		application.hasShownSniperIsBidding();
-		auction.hasReceivedBid(1098, ApplicationRunner.SNIPER_XMPP_ID);
-		auction.announceClosed();
-		application.showsSniperHasLostAuction();
-	}
+//	public void sniperMakesAHigherBidButLoses() throws Exception {
+//		auction.startSellingItem();
+//		application.startBiddingIn(auction);
+//		auction.hasReceivedJoinRequestFrom(ApplicationRunner.SNIPER_XMPP_ID);
+//		auction.reportPrice(1000, 98, "other bidder");
+//		application.hasShownSniperIsBidding();
+//		auction.hasReceivedBid(1098, ApplicationRunner.SNIPER_XMPP_ID);
+//		auction.announceClosed();
+//		application.showsSniperHasLostAuction();
+//	}
 
 	// Additional cleanup
 	@After

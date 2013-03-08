@@ -7,9 +7,8 @@ import static endtoendtest.FakeAuctionServer.XMPP_HOSTNAME;
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";
-	public static final String STATUS_JOINING = "Joining";
-	public static final String STATUS_LOST = "Lost";
-	public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
+	private static final String STATUS_JOINING = null;
+	private static final String STATUS_LOST = null;
 	private AuctionSniperDriver driver;
 
 	public void startBiddingIn(final FakeAuctionServer auction) {
@@ -40,8 +39,8 @@ public class ApplicationRunner {
 		}
 	}
 
-	public void hasShownSniperIsBidding() {
-		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
-		
-	}
+//	public void hasShownSniperIsBidding() {
+//		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
+//		
+//	}
 }
