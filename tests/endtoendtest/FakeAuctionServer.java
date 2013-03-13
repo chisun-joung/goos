@@ -1,7 +1,6 @@
 package endtoendtest;
 
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.equalTo;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -9,7 +8,7 @@ import static org.junit.Assert.assertThat;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.hamcrest.Matcher;
+
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.MessageListener;
@@ -17,7 +16,7 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
-import auctionsniper.Main;
+
 
 public class FakeAuctionServer {
 
@@ -56,31 +55,6 @@ public class FakeAuctionServer {
 		messageListener.receivesAMessage();
 	}
 
-	public void hasReceivedJoinRequestFrom(String sniperID)
-			throws InterruptedException {
-		receivesAMessageMatching(sniperID, equalTo(Main.JOIN_COMMAND_FORMAT));
-	}
-
-	private void receivesAMessageMatching(String sniperId,
-			Matcher<? super String> messageMatcher) throws InterruptedException {
-		messageListener.receivesAMessage(messageMatcher);
-		assertThat(currentChat.getParticipant(), equalTo(sniperId));
-
-	}
-
-	public void reportPrice(int price, int increment, String bidder)
-			throws XMPPException {
-		currentChat.sendMessage(String.format("SOLVersion: 1.1; Event: PRICE; "
-				+ "CurrentPrice: %d; Increment: %d; Bidder: %s;", price,
-				increment, bidder));
-	}
-
-	public void hasReceivedBid(int bid, String sniperId)
-			throws InterruptedException {
-		receivesAMessageMatching(sniperId,
-				equalTo(String.format(Main.BID_COMMAND_FORMAT, bid)));
-	}
-
 	public void announceClosed() throws XMPPException {
 		currentChat.sendMessage(new Message());
 	}
@@ -95,11 +69,6 @@ public class FakeAuctionServer {
 
 		public void processMessage(Chat chat, Message message) {
 			messages.add(message);
-		}
-
-		public void receivesAMessage(Matcher<? super String> messageMatcher) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		public void receivesAMessage() throws InterruptedException {
