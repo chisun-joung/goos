@@ -77,4 +77,14 @@ public class FakeAuctionServer {
 
 		}
 	}
+
+	public void reportPrice(int i, int j, String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void hasReceivedBid(int i, String sniperXmppId) {
+		// TODO Auto-generated method stub
+		
+	}
 }
