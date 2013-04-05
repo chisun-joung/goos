@@ -78,13 +78,8 @@ public class FakeAuctionServer {
 		}
 	}
 
-	public void reportPrice(int i, int j, String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void hasReceivedBid(int i, String sniperXmppId) {
-		// TODO Auto-generated method stub
+	public void reportPrice(int price, int increment, String bidder) throws XMPPException {
+		currentChat.sendMessage(String.format("SOLVersion: 1.1; Event: PRICE; " + "CurrentPrice: %d; Increment: %d; Bidder: %s;",price ,increment,bidder));
 		
 	}
 }
