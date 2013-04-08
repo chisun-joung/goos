@@ -30,7 +30,7 @@ public class ApplicationRunner {
 	}
 
 	public void showsSniperHasLostAuction() {
-		driver.showsSniperStatus(STATUS_LOST);
+		driver.showsSniperStatus(MainWindow.STATUS_LOST);
 
 	}
 
@@ -41,7 +41,7 @@ public class ApplicationRunner {
 	}
 
 	public void hasShownSniperIsBidding() {
-		// TODO Auto-generated method stub
+		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
 		
 	}
 

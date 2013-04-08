@@ -29,40 +29,44 @@ public class Main {
 	@SuppressWarnings("unused")
 	private Chat notToBeGCd;
 
-
 	public Main() throws Exception {
-		 startUserInterface();
+		startUserInterface();
 	}
 
 	public static void main(String... args) throws Exception {
 
 		Main main = new Main();
-		main.joinAuction(connection(args[ARG_HOSTNAME],args[ARG_USERNAME],args[ARG_PASSWORD]),args[ARG_ITEM_ID]);
+		main.joinAuction(
+				connection(args[ARG_HOSTNAME], args[ARG_USERNAME],
+						args[ARG_PASSWORD]), args[ARG_ITEM_ID]);
 	}
 
-	private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
-		
-		final Chat chat = connection.getChatManager().createChat(auctionId(itemId,connection), new MessageListener() {
-			
-			@Override
-			public void processMessage(Chat aChat, Message message) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						ui.showStatus(MainWindow.STATUS_LOST);
+	private void joinAuction(XMPPConnection connection, String itemId)
+			throws XMPPException {
+
+		final Chat chat = connection.getChatManager().createChat(
+				auctionId(itemId, connection), new MessageListener() {
+
+					@Override
+					public void processMessage(Chat aChat, Message message) {
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								ui.showStatus(MainWindow.STATUS_LOST);
+							}
+						});
+
 					}
 				});
-				
-			}
-		});
-		
+
 		this.notToBeGCd = chat;
-		
-		chat.sendMessage(new Message());
-		
+
+		chat.sendMessage(JOIN_COMMAND_FORMAT);
+
 	}
 
 	private static String auctionId(String itemId, XMPPConnection connection) {
-		return String.format(AUCTION_ID_FORMAT, itemId, connection.getServiceName());
+		return String.format(AUCTION_ID_FORMAT, itemId,
+				connection.getServiceName());
 	}
 
 	private static XMPPConnection connection(String hostname, String username,
