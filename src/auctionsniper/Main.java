@@ -10,7 +10,7 @@ import org.jivesoftware.smack.packet.Message;
 
 import auctionsniper.ui.MainWindow;
 
-public class Main {
+public class Main implements AuctionEventListener {
 
 	public static final String AUCTION_RESOURCE = "Auction";
 	public static final String ITEM_ID_AS_LOGIN = "auction-%s";
@@ -45,18 +45,7 @@ public class Main {
 			throws XMPPException {
 
 		final Chat chat = connection.getChatManager().createChat(
-				auctionId(itemId, connection), new MessageListener() {
-
-					@Override
-					public void processMessage(Chat aChat, Message message) {
-						SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-								ui.showStatus(MainWindow.STATUS_LOST);
-							}
-						});
-
-					}
-				});
+				auctionId(itemId, connection), new AuctionMessageTranslator(this));
 
 		this.notToBeGCd = chat;
 
@@ -83,5 +72,21 @@ public class Main {
 				ui = new MainWindow();
 			}
 		});
+	}
+
+	@Override
+	public void auctionClosed() {
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				ui.showStatus(MainWindow.STATUS_LOST);
+			}
+		});
+		
+	}
+
+	@Override
+	public void currentPrice(int price, int increment) {
+		// TODO Auto-generated method stub
+		
 	}
 }
