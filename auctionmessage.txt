@@ -25,3 +25,13 @@ it into the translator on construction. We don't yet know what's in
 this interface and we haven't yet begun to think about its
 implementation. Our immediate concern is to get the message
 translation to work; the rest can wait. 
+
+Our application accepts Price events from the auction, but cannot interpret them yet. We need code that will perform two actions when the currentPrice() method is called:
+
+It feels like this is a good time to introduce what we should call an "Auction Sniper," the component at the heart of our application, so we create an AuctionSniper class. Some of its intened behavior is currently buried in Main, and a good start would be to extract it into our new class, it will take a little effort. 
+ Given that an AuctionSniper should respond to Price events, we decide to make it implement AuctionEventListener rather than Main. The question is what to do about the user interface. If we consider moving this method:
+
+
+Sending a Bid
+An Auction Interface
+After the usual discussion, we decide to introduce a new collaborator, an Auction. Auction and SniperListener repesent two different domains in the application: Auction is about financial transactions, it accepts bids for items in changes to the current state of the Sniper. Auction is a dependency, AuctionSniper is a notification. 

@@ -3,14 +3,12 @@ package auctionsniper;
 import javax.swing.SwingUtilities;
 
 import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 
 import auctionsniper.ui.MainWindow;
 
-public class Main implements AuctionEventListener {
+public class Main {
 
 	public static final String AUCTION_RESOURCE = "Auction";
 	public static final String ITEM_ID_AS_LOGIN = "auction-%s";
@@ -43,14 +41,38 @@ public class Main implements AuctionEventListener {
 
 	private void joinAuction(XMPPConnection connection, String itemId)
 			throws XMPPException {
-
 		final Chat chat = connection.getChatManager().createChat(
-				auctionId(itemId, connection), new AuctionMessageTranslator(this));
-
+				auctionId(itemId, connection), null);
 		this.notToBeGCd = chat;
+		Auction auction = new XMPPAuction(chat);
+		chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(),new AuctionSniper(
+				auction, new SniperStateDisplayer(ui))));
+		auction.join();
 
-		chat.sendMessage(JOIN_COMMAND_FORMAT);
+	}
 
+	public static class XMPPAuction implements Auction {
+		private final Chat chat;
+
+		public XMPPAuction(Chat chat) {
+			this.chat = chat;
+		}
+
+		public void bid(int amount) {
+			sendMessage(String.format(BID_COMMAND_FORMAT, amount));
+		}
+
+		public void join() {
+			sendMessage(JOIN_COMMAND_FORMAT);
+		}
+
+		private void sendMessage(final String message) {
+			try {
+				chat.sendMessage(message);
+			} catch (XMPPException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private static String auctionId(String itemId, XMPPConnection connection) {
@@ -74,19 +96,4 @@ public class Main implements AuctionEventListener {
 		});
 	}
 
-	@Override
-	public void auctionClosed() {
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run() {
-				ui.showStatus(MainWindow.STATUS_LOST);
-			}
-		});
-		
-	}
-
-	@Override
-	public void currentPrice(int price, int increment) {
-		// TODO Auto-generated method stub
-		
-	}
 }
